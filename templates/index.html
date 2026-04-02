@@ -3,53 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Badger Watch</title>
+    <title>Terrerath Badger Watch</title>
+    <style>
     <style>
         body {
-            font-family: 'Georgia', serif; /* A bit more classic feel */
+            font-family: 'Open Sans', sans-serif; /* A modern, readable font */
             margin: 0;
-            padding: 20px;
-            background: repeating-linear-gradient(
-                45deg,
-                #f0f0f0,
-                #f0f0f0 10px,
-                #e8e8e8 10px,
-                #e8e8e8 20px
-            ); /* Subtle badger stripe pattern */
+            padding: 0;
+            background-color: #f8f8f8; /* Very light grey */
             color: #333;
+            line-height: 1.6;
         }
-        h1 {
-            color: #1a1a1a; /* Dark almost black */
+        .header {
+            background-color: #1a1a1a; /* Dark header */
+            color: #ffffff;
+            padding: 20px 0;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        p {
-            text-align: center;
-            font-size: 1.1em;
-            margin-bottom: 40px;
-            color: #555;
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #d0d0d0;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 30px;
+            padding-bottom: 40px;
         }
         .video-container {
             background-color: #ffffff;
-            border: 2px solid #a0a0a0; /* Medium grey border */
-            padding: 20px;
-            margin: 0 auto 30px auto; /* Centered with more space */
-            max-width: 800px; /* Constrain width */
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Stronger shadow */
-            transition: transform 0.2s ease-in-out;
+            border: 1px solid #e0e0e0; /* Lighter border */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Softer, larger shadow */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         .video-container:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         .video-container h2 {
-            color: #333; /* Darker title */
-            font-size: 1.8em;
+            color: #222; /* Even darker title */
+            font-size: 1.6em;
             margin-top: 0;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .video-container p {
+            font-size: 0.95em;
+            color: #666;
+            text-align: left; /* Description text aligns left */
             margin-bottom: 15px;
         }
         .video-embed {
@@ -59,8 +77,9 @@
             overflow: hidden;
             max-width: 100%;
             background: #000;
-            margin-bottom: 15px;
-            border-radius: 8px; /* Rounded corners for video embed */
+            margin-bottom: 10px;
+            border-radius: 6px; /* Slightly smaller rounded corners for video */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .video-embed iframe {
             position: absolute;
@@ -70,20 +89,40 @@
             height: 100%;
             border: 0;
         }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #1a1a1a;
+            color: #d0d0d0;
+            font-size: 0.9em;
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1><span style="font-size: 1.2em;">🦡</span> Welcome to Badger Watch! <span style="font-size: 1.2em;">🦡</span></h1>
-    <p>Witness the nocturnal life and charming antics of badgers right here!</p>
+    <div class="header">
+        <h1><span style="font-size: 1.1em;">🦡</span> Terrerath Badger Watch <span style="font-size: 1.1em;">🦡</span></h1>
+        <p>Bringing you the hidden world of badgers from Terrerath!</p>
+    </div>
 
-    {% for video in videos %}
-    <div class="video-container">
-        <h2>{{ video.title }}</h2>
-        <p>{{ video.description }}</p>
-        <div class="video-embed">
-            <iframe src="{{ video.embed_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="container">
+        <div class="video-grid">
+
+            {% for video in videos %}
+            <div class="video-container">
+                <h2>{{ video.title }}</h2>
+                <p>{{ video.description }}</p>
+                <div class="video-embed">
+                    <iframe src="{{ video.embed_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
+
+    <div class="footer">
+        <p>&copy; 2026 Terrerath Badger Watch. All rights reserved.</p>
+    </div>
 </body>
 </html>
