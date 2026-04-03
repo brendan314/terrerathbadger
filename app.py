@@ -17,9 +17,10 @@ cloudinary.config(
 # Cloudinary public IDs for your videos
 # In a real application, this would come from a database.
 videos_public_ids = [
-    'badger_foraging_example_video', # Replace with your actual Cloudinary video public ID
-    'badger_family_example_video',  # Replace with another actual Cloudinary video public ID
-    'another_badger_video',         # Add more public IDs as needed
+    'vauq4o_xhtmy9', # Replace with your actual Cloudinary video public ID
+    'j6wxck_g9ps3t',  # Replace with another actual Cloudinary video public ID
+    '9uenlv_ntdjg5',         # Add more public IDs as needed
+    'y9by5s_dtvlbj'
 ]
 
 @app.route('/')
