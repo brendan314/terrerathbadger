@@ -19,23 +19,37 @@ videos_data = [
 
 @app.route('/')
 def index():
-    processed_videos = []
+    # Process videos and group them by month
+    grouped_videos = {}
     for video_item in videos_data:
         video_datetime_str = video_item['datetime']
         video_url = video_item['url']
 
-        # Parse datetime string for sorting and formatting
         video_datetime_obj = datetime.strptime(video_datetime_str, "%Y-%m-%d %H:%M")
+        
+        # Key for grouping: Year-Month (e.g., "2026-03")
+        group_key = video_datetime_obj.strftime("%Y-%m")
+        display_month_year = video_datetime_obj.strftime("%B %Y") # e.g., "March 2026"
 
-        processed_videos.append({
-            'id': video_datetime_str.replace(' ', '_').replace(':', '-'), # Create a simple ID from datetime
-            'datetime_obj': video_datetime_obj, # Use datetime object for sorting
-            'display_datetime': video_datetime_obj.strftime("%b %d, %Y %H:%M"), # Format for display
+        if group_key not in grouped_videos:
+            grouped_videos[group_key] = {
+                'display_month_year': display_month_year,
+                'videos': []
+            }
+        
+        grouped_videos[group_key]['videos'].append({
+            'id': video_datetime_str.replace(' ', '_').replace(':', '-'),
+            'datetime_obj': video_datetime_obj,
+            'display_datetime': video_datetime_obj.strftime("%b %d, %Y %H:%M"),
             'embed_url': video_url
         })
+    
+    # Sort videos within each group by datetime, most recent first
+    for group_key in grouped_videos:
+        grouped_videos[group_key]['videos'].sort(key=lambda x: x['datetime_obj'], reverse=True)
 
-    # Sort videos by datetime, most recent first
-    processed_videos.sort(key=lambda x: x['datetime_obj'], reverse=True)
+    # Sort the groups by month/year, most recent month first
+    sorted_groups = sorted(grouped_videos.items(), key=lambda item: item[0], reverse=True)
 
-    return render_template('index.html', videos=processed_videos)
+    return render_template('index.html', sorted_groups=sorted_groups)
 
