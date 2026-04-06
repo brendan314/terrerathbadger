@@ -5,65 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terrerath Badger Watch</title>
     <style>
+        :root {
+            --badger-dark: #3a2e28; /* Dark brown, earthy */
+            --badger-medium: #6b5c53; /* Medium brown */
+            --badger-light: #f4f0ed; /* Off-white, creamy */
+            --accent-green: #4CAF50; /* A touch of green for nature */
+            --text-color: #333;
+            --light-border: #dcdcdc;
+            --shadow-light: rgba(0,0,0,0.1);
+            --shadow-medium: rgba(0,0,0,0.2);
+        }
+
         body {
-            font-family: 'Open Sans', sans-serif; /* A modern, readable font */
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8; /* Very light grey */
-            color: #333;
+            background-color: var(--badger-light);
+            color: var(--text-color);
             line-height: 1.6;
         }
         .header {
-            background-color: #1a1a1a; /* Dark header */
-            color: #ffffff;
-            padding: 20px 0;
+            background-color: var(--badger-dark);
+            color: var(--badger-light);
+            padding: 30px 0;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            box-shadow: 0 4px 8px var(--shadow-medium);
+            margin-bottom: 40px;
+            background-image: url('https://res.cloudinary.com/dkheyxxzk/image/upload/v1775253818/badger_bg.png'); /* Subtle badger pattern */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden; /* To contain potential parallax effects */
+        }
+        .header::before { /* Overlay for better text readability */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Darker overlay */
+            z-index: 1;
         }
         .header h1 {
             margin: 0;
-            font-size: 3em;
-            letter-spacing: 2px;
+            font-size: 3.5em;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        .month-group {
+        .intro-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
             margin-bottom: 50px;
+            box-shadow: 0 5px 20px var(--shadow-light);
+            text-align: center;
+            line-height: 1.8;
+            border: 1px solid var(--light-border);
+        }
+        .intro-section h2 {
+            color: var(--badger-dark);
+            font-size: 2.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .intro-section p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            color: #555;
+        }
+        .month-group {
+            margin-bottom: 60px;
         }
         .month-header {
             text-align: center;
-            font-size: 2.2em;
-            color: #2a2a2a;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #e0e0e0;
-            padding-bottom: 10px;
+            font-size: 2.5em;
+            color: var(--badger-dark);
+            margin-bottom: 40px;
+            border-bottom: 4px solid var(--badger-medium);
+            padding-bottom: 15px;
             letter-spacing: 1px;
             font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .video-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-            gap: 30px; /* Space between videos */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             padding-bottom: 40px;
         }
         .video-item {
             background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--light-border);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--shadow-light);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .video-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px var(--shadow-medium);
         }
         .video-embed {
             position: relative;
@@ -72,9 +125,9 @@
             overflow: hidden;
             max-width: 100%;
             background: #000;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-light);
         }
         .video-embed video {
             position: absolute;
@@ -86,39 +139,67 @@
         }
         .video-datetime {
             text-align: center;
-            font-size: 1em;
-            color: #555;
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
+            font-size: 1.1em;
+            color: var(--badger-dark);
+            padding-top: 15px;
+            border-top: 2px solid var(--light-border);
             font-weight: bold;
         }
         .footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background-color: #1a1a1a;
-            color: #d0d0d0;
-            font-size: 0.9em;
+            padding: 30px;
+            margin-top: 60px;
+            background-color: var(--badger-dark);
+            color: var(--badger-light);
+            font-size: 1em;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
         }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2em; /* Smaller header on mobile */
+                font-size: 2.5em;
+            }
+            .intro-section h2 {
+                font-size: 2em;
+            }
+            .intro-section p {
+                font-size: 1em;
             }
             .month-header {
-                font-size: 1.8em;
+                font-size: 2em;
+            }
+            .video-item {
+                padding: 15px;
+            }
+            .video-datetime {
+                font-size: 0.95em;
             }
         }
         @media (max-width: 480px) {
             .header h1 {
-                font-size: 1.5em; /* Even smaller header on very small screens */
+                font-size: 2em;
+            }
+            .intro-section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            .intro-section h2 {
+                font-size: 1.8em;
             }
             .month-header {
-                font-size: 1.5em;
+                font-size: 1.7em;
+                margin-bottom: 25px;
             }
             .video-gallery {
-                grid-template-columns: 1fr; /* Single column on very small screens */
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .video-item {
+                padding: 10px;
+            }
+            .video-datetime {
+                font-size: 0.9em;
             }
         }
     </style>
@@ -130,6 +211,19 @@
     </div>
 
     <div class="container">
+        <div class="intro-section">
+            <h2>Badgers in Ireland: A Peek into Their World</h2>
+            <p>
+                Badgers (Meles meles) are iconic nocturnal mammals, deeply woven into the fabric of Irish wildlife. They are fascinating creatures, known for their distinctive black and white striped faces and powerful digging claws, which they use to construct elaborate underground homes called 'setts'.
+            </p>
+            <p>
+                In Ireland, badgers thrive in a variety of habitats, from woodlands and hedgerows to farmland. They are omnivores, with a diet primarily consisting of earthworms, but also include insects, fruits, roots, and small mammals. Observing badgers in their natural habitat can be a rare treat, revealing their diligent foraging and social behaviours.
+            </p>
+            <p>
+                Our badger watch aims to provide a glimpse into the secret lives of these shy creatures in Terrerath, helping us better understand and appreciate their presence in our local ecosystem.
+            </p>
+        </div>
+
         {% for group_key, group_data in sorted_groups %}
         <div class="month-group">
             <h2 class="month-header">{{ group_data.display_month_year }}</h2>
@@ -151,7 +245,7 @@
     </div>
 
     <div class="footer">
-        <p>&copy; 2026 Terrerath Badger Watch. All rights reserved.</p>
+        <p>&copy; 2026 Terrerath Badger Watch. All rights reserved. Built with passion for wildlife.</p>
     </div>
 </body>
 </html>
